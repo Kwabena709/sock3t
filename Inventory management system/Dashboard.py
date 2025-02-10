@@ -1,6 +1,7 @@
 from tkinter import *
 from PIL import Image,ImageTk
 from tkinter import ttk
+from tkcalendar import DateEntry
 
 
 def employee_form():
@@ -40,7 +41,7 @@ def employee_form():
     Vertical_scrollbar.pack(side=RIGHT,fill=Y,pady=(10,0))
     horizontal_scrollbar.config(command=employee_treeview.xview)
     Vertical_scrollbar.config(command=employee_treeview.yview)
-    employee_treeview.pack(pady=(10,0))
+    employee_treeview.pack(fill=BOTH, expand=True, pady=(10,0))
     
     employee_treeview.heading('empid',text='EmpId')
     employee_treeview.heading('name',text='Name')
@@ -74,7 +75,36 @@ def employee_form():
     detail_frame.place(x=0,y=300)
     
     empid_label=Label(detail_frame,text='EmpId')
-    empid_label.grid(row=0,column=0)
+    empid_label.grid(row=0,column=0,padx=20,pady=10)
+    
+    emp_entry=Entry(detail_frame,font=('times new roman',12),bg='lightyellow')
+    emp_entry.grid(row=0,column=1,padx=20,pady=10)
+    
+    Name_label=Label(detail_frame,text='Name')
+    Name_label.grid(row=0,column=2,padx=20,pady=10)
+    
+    Name_entry=Entry(detail_frame,font=('times new roman',12),bg='lightyellow')
+    Name_entry.grid(row=0,column=3,padx=20,pady=10)
+    
+    Email_label=Label(detail_frame,text='Email')
+    Email_label.grid(row=0,column=4,padx=20,pady=10)
+    
+    Email_entry=Entry(detail_frame,font=('times new roman',12),bg='lightyellow')
+    Email_entry.grid(row=0,column=5,padx=20,pady=10)
+    
+    gender_label=Label(detail_frame,text='Gender')
+    gender_label.grid(row=1,column=0,padx=20,pady=10)
+    
+    gender_combobox=ttk.Combobox(detail_frame,values=('Male','Female'),font=('times new roman',12),width=18,state='readonly')
+    gender_combobox.set('Select Gender')
+    gender_combobox.grid(row=1,column=1,padx=20,pady=10)
+    
+    dob_label=Label(detail_frame,text='Date of Birth')
+    dob_label.grid(row=1,column=2,padx=20,pady=10)       
+    
+    
+    
+    
     
     
 #GUI Part
@@ -213,9 +243,6 @@ Total_Sales_label.pack()
 
 Total_Sales_count_label=Label(Sales_frame,text='0',font=("times new roman",40,'bold'),bg='#E74C3C',fg='white')
 Total_Sales_count_label.pack()
-
-
-
 
 
 

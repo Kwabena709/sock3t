@@ -73,6 +73,9 @@ def employee_form():
     detail_frame=Frame(employee_frame)
     detail_frame.place(x=0,y=300)
     
+    empid_label=Label(detail_frame,text='EmpId')
+    empid_label.grid(row=0,column=0)
+    
     
 #GUI Part
 window=Tk()

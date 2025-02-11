@@ -1,18 +1,48 @@
 from tkinter import *
 from tkinter import ttk
-from PIL import Image,ImageTk
+from PIL import Image, ImageTk
 from tkcalendar import DateEntry
 import pymysql
 from tkinter import messagebox
 
+
+
 def connect_database():
     try:
-        connection=pymysql.connect(host='localhost',user='root',password='1989')
-        cursor=connection.cursor()
+        # Connecting to MySQL Database
+        connection = pymysql.connect(host='localhost', user='root', password='1989')
+        cursor = connection.cursor()
 
-    except:
-        messagebox.showerror('Error','Database connectivity issue try again, open mysql command line client')
-        return
+        # Create database and use it
+        cursor.execute('CREATE DATABASE IF NOT EXISTS inventory_system')
+        cursor.execute('USE inventory_system')
+
+        # Create employee table
+        cursor.execute('''CREATE TABLE IF NOT EXISTS employee_data (
+            empid INT PRIMARY KEY,
+            name VARCHAR(100),
+            email VARCHAR(100),
+            gender VARCHAR(50),
+            dob VARCHAR(30),
+            phone VARCHAR(30),
+            employment_type VARCHAR(50),
+            education VARCHAR(50),
+            work_shift VARCHAR(50),
+            location VARCHAR(100),
+            doj VARCHAR(30),
+            salary VARCHAR(50),
+            usertype VARCHAR(50),
+            password VARCHAR(50)
+        )''')
+
+    except Exception as e:
+        messagebox.showerror('Error', f'Database connectivity issue: {str(e)}')
+    finally:
+        # Close the connection after operations are done
+        if  connection:
+            connection.close()
+
+connect_database()
 
 def employee_form(window):
     global back_logo
@@ -52,9 +82,7 @@ def employee_form(window):
 
     horizontal_scrollbar = Scrollbar(Topframe, orient=HORIZONTAL)
     Vertical_scrollbar = Scrollbar(Topframe, orient=VERTICAL)
-    employee_treeview = ttk.Treeview(Topframe, columns=(
-    'empid', 'name', 'email', 'location', 'phone', 'gender', 'dob', 'employment_type', 'education', 'work_shift', 'doj',
-    'salary', 'user type'),
+    employee_treeview = ttk.Treeview(Topframe, columns=('empid', 'name', 'email', 'location', 'phone', 'gender', 'dob', 'employment_type', 'education', 'work_shift', 'doj', 'salary', 'user type'),
                                      show='headings', yscrollcommand=Vertical_scrollbar.set,
                                      xscrollcommand=horizontal_scrollbar.set)
     horizontal_scrollbar.pack(side=BOTTOM, fill=X)
@@ -117,7 +145,7 @@ def employee_form(window):
 
     gender_combobox = ttk.Combobox(detail_frame, values=('Male', 'Female'), font=('times new roman', 12), width=18,
                                    state='readonly')
-    gender_combobox.set('Select Gender')
+    gender_combobox.set('Select Gen der')
     gender_combobox.grid(row=1, column=1, padx=20, pady=10)
 
     dob_label = Label(detail_frame, text='Date of Birth', bg='white', font=('times new roman', 12))
@@ -195,8 +223,22 @@ def employee_form(window):
     button_frame.place(x=200, y=520)
 
     Save_button = Button(button_frame, text='Save', font=('times new roman', 15), width=10, cursor='hand2',
-                         bg='#0f4d7d',
-                         fg='white', activebackground='#0f4d7d', activeforeground='white')
+                         bg='#0f4d7d', fg='white', activebackground='#0f4d7d', activeforeground='white',
+                         command=lambda: add_employee(
+                             emp_entry.get(),
+                             Email_entry.get(),  # Corrected this line
+                             gender_combobox.get(),
+                             dob_date_entry.get(),
+                             contact_Entry.get(),
+                             emp_type_Combobox.get(),
+                             education_Combobox.get(),
+                             Work_Shift_Combobox.get(),
+                             address_text.get(1.0, END),
+                             Doj_label_combobox.get(),
+                             Salary_Entry.get(),
+                             User_type_Combobox.get(),
+                             Password_Entry.get()
+                         ))
     Save_button.grid(row=0, column=2, padx=20)
 
     Update_button = Button(button_frame, text='Update', font=('times new roman', 15), width=10, cursor='hand2',

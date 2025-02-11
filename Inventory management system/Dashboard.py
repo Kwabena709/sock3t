@@ -254,7 +254,7 @@ Exit_btn.pack(fill=X)
 emp_frame=Frame(window,bg='#2C3E50',bd=3,relief=RIDGE)
 emp_frame.place(x=400,y=125,width=280,height=170)
 
-Total_emp_icon=ImageTk.PhotoImage(file='total_emp.png')
+Total_emp_icon=ImageTk.PhotoImage(Image.open('total_emp.png'))
 
 Total_Emp_icon_label=Label(emp_frame,image=Total_emp_icon,bg='#2C3E50')
 Total_Emp_icon_label.pack(pady=3)
@@ -269,7 +269,7 @@ Total_Emp_count_label.pack()
 Sup_frame=Frame(window,bg='#8E44AD',bd=3,relief=RIDGE)
 Sup_frame.place(x=800,y=125,width=280,height=170)
 
-Total_Sup_icon=ImageTk.PhotoImage(file='total_sup.png')
+Total_Sup_icon=ImageTk.PhotoImage(Image.open('total_sup.png'))
 
 Total_Sup_icon_label=Label(Sup_frame,image=Total_Sup_icon,bg='#8E44AD')
 Total_Sup_icon_label.pack(pady=3)
@@ -285,7 +285,7 @@ Total_Sup_count_label.pack()
 Cat_frame=Frame(window,bg='#27AE60',bd=3,relief=RIDGE)
 Cat_frame.place(x=400,y=310,width=280,height=170)
 
-Total_Cat_icon=ImageTk.PhotoImage(file='total_cat.png')
+Total_Cat_icon=ImageTk.PhotoImage(Image.open('total_cat.png'))
 
 Total_Cat_icon_label=Label(Cat_frame,image=Total_Cat_icon,bg='#27AE60')
 Total_Cat_icon_label.pack(pady=3)
@@ -301,7 +301,7 @@ Total_Cat_count_label.pack()
 Prod_frame=Frame(window,bg='#2C3E50',bd=3,relief=RIDGE)
 Prod_frame.place(x=800,y=310,width=280,height=170)
 
-Total_Prod_icon=ImageTk.PhotoImage(file='total_Prod.png')
+Total_Prod_icon=ImageTk.PhotoImage(Image.open('total_Prod.png'))
 
 Total_Prod_icon_label=Label(Prod_frame,image=Total_Prod_icon,bg='#2C3E50')
 Total_Prod_icon_label.pack(pady=3)
@@ -316,7 +316,7 @@ Total_Prod_count_label.pack()
 Sales_frame=Frame(window,bg='#E74C3C',bd=3,relief=RIDGE)
 Sales_frame.place(x=600,y=495,width=280,height=170)
 
-Total_Sales_icon=ImageTk.PhotoImage(file='total_Sales.png')
+Total_Sales_icon=ImageTk.PhotoImage(Image.open('total_Sales.png'))
 
 Total_Sales_icon_label=Label(Sales_frame,image=Total_Sales_icon,bg='#E74C3C')
 Total_Sales_icon_label.pack(pady=3)
@@ -326,6 +326,8 @@ Total_Sales_label.pack()
 
 Total_Sales_count_label=Label(Sales_frame,text='0',font=("times new roman",40,'bold'),bg='#E74C3C',fg='white')
 Total_Sales_count_label.pack()
+
+
 
 
 

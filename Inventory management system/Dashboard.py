@@ -2,7 +2,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 from tkinter import ttk
 from tkcalendar import DateEntry
-
+import time
 
 def employee_form():
     global back_logo

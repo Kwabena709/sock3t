@@ -57,7 +57,7 @@ def employee_form(window):
 
     back_logo = ImageTk.PhotoImage(file='back.png')
     back_btn = Button(Topframe, image=back_logo, bd=0, cursor='hand2', command=lambda: employee_frame.place_forget(),
-                      bg='white')
+                      bg='white',activebackground='white')
     back_btn.place(x=10, y=0)
 
     search_frame = Frame(Topframe, bg='white')
@@ -145,7 +145,7 @@ def employee_form(window):
 
     gender_combobox = ttk.Combobox(detail_frame, values=('Male', 'Female'), font=('times new roman', 12), width=18,
                                    state='readonly')
-    gender_combobox.set('Select Gen der')
+    gender_combobox.set('Select Gender')
     gender_combobox.grid(row=1, column=1, padx=20, pady=10)
 
     dob_label = Label(detail_frame, text='Date of Birth', bg='white', font=('times new roman', 12))

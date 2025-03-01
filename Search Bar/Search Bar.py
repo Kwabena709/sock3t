@@ -5,6 +5,7 @@ import time
 import speech_recognition
 from pygame import mixer
 from tkinter import Tk, PhotoImage
+import os,sys
 
 currenttime = time.strftime('%H:%M:%S')
 
@@ -97,7 +98,7 @@ queryEntry = Entry(root, width=45, font=('arial', 14, 'bold'), bd=2, relief=SUNK
 queryEntry.grid(row=0, column=1)
 
 # Mic button
-mic_icon = PhotoImage(file='mic.png')  # Ensure this file exists in the same directory
+mic_icon = PhotoImage(file='mic.png') # Ensure this file exists in the same directory
 mic_icon_btn = Button(root, image=mic_icon, bg='green4', bd=0, cursor='hand2', activebackground='green4', command=voice)
 mic_icon_btn.grid(row=0, column=2, padx=5)
 

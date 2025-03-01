@@ -249,6 +249,7 @@ def connect_database():
     connectwindow.geometry('470x250+730+230')
     connectwindow.title("Database Connection")
     connectwindow.resizable(False, False)
+
     
     connectwindow.iconphoto(False, tkinter.PhotoImage(file='church logo.png'))
 
@@ -271,8 +272,8 @@ def connect_database():
     PasswordEntry = Entry(connectwindow, font=('times new roman', 15, 'bold'), bd=2, show='*')
     PasswordEntry.grid(row=2, column=1, padx=40, pady=20)
 
-    connect_button = ttk.Button(connectwindow, text='Connect', cursor='hand2', command=connect)
-    connect_button.grid(row=3, columnspan=2, pady=20)
+    connect_button = ttk.Button(connectwindow, text='Connect',cursor='hand2', command=connect)
+    connect_button.grid(row=3, columnspan=2, pady=2)
     
     
 # Main window setup
@@ -327,7 +328,7 @@ connectButton.place(x=945, y=10)
 
 # Frames setup
 leftframe = Frame(window)
-leftframe.place(x=50, y=10, width=300, height=600)
+leftframe.place(x=50, y=80, width=300, height=600)
 
 # Logo
 logo_image = PhotoImage(file='member1.png')

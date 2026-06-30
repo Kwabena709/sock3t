@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CrossSend</string>
+    <string name="receive_title">Ready to receive</string>
+    <string name="receive_subtitle">Open CrossSend on iPhone and scan the QR code</string>
+    <string name="notification_channel_name">File transfers</string>
+    <string name="notification_channel_desc">Shows progress while receiving files from iPhone</string>
+    <string name="notification_receiving">Receiving files from iPhone…</string>
+</resources>

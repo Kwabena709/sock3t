@@ -38,6 +38,9 @@ class DiscoveryManager(
             serviceName = "CrossSend-${UUID.randomUUID().toString().take(8)}"
             serviceType = SERVICE_TYPE
             setPort(port)
+            setAttribute("pin", pin)
+            setAttribute("name", deviceName)
+            setAttribute("host", host)
         }
 
         val listener = object : NsdManager.RegistrationListener {

@@ -16,7 +16,7 @@ struct HomeView: View {
   var body: some View {
     NavigationStack {
       List {
-        Section("Android device") {
+        Section {
           if let device = selectedDevice {
             VStack(alignment: .leading, spacing: 6) {
               Text(device.name)
@@ -28,12 +28,8 @@ struct HomeView: View {
                 .font(.subheadline.monospaced())
             }
           } else {
-            Text("Scan the QR code shown on the Android app.")
+            Text("Select a nearby Android device or scan its QR code.")
               .foregroundStyle(.secondary)
-          }
-
-          Button("Scan QR code") {
-            showScanner = true
           }
 
           if selectedDevice != nil {
@@ -43,6 +39,38 @@ struct HomeView: View {
               transferClient.reset()
             }
           }
+        } header: {
+          Text("Android device")
+        }
+
+        Section {
+          if discovery.isScanning && discovery.nearbyDevices.isEmpty {
+            HStack(spacing: 12) {
+              ProgressView()
+              Text(discovery.statusMessage)
+                .foregroundStyle(.secondary)
+            }
+          } else if discovery.nearbyDevices.isEmpty {
+            Text(discovery.statusMessage)
+              .foregroundStyle(.secondary)
+          } else {
+            ForEach(discovery.nearbyDevices) { device in
+              NearbyDeviceRow(
+                device: device,
+                isSelected: selectedDevice?.id == device.remoteDevice?.id
+              ) {
+                selectNearbyDevice(device)
+              }
+            }
+          }
+
+          Button("Scan QR code") {
+            showScanner = true
+          }
+        } header: {
+          Text("Nearby devices")
+        } footer: {
+          Text("Both phones must be on the same Wi‑Fi. Start receive mode on Android first.")
         }
 
         Section("Files") {
@@ -99,6 +127,12 @@ struct HomeView: View {
         }
       }
       .navigationTitle("CrossSend")
+      .onAppear {
+        discovery.start()
+      }
+      .onDisappear {
+        discovery.stop()
+      }
       .sheet(isPresented: $showScanner) {
         QRScannerView { url in
           if let device = RemoteDevice.from(pairingURL: url) {
@@ -143,6 +177,12 @@ struct HomeView: View {
     }
   }
 
+  private func selectNearbyDevice(_ device: DiscoveredDevice) {
+    guard let remote = device.remoteDevice else { return }
+    selectedDevice = remote
+    transferClient.reset()
+  }
+
   private func byteCount(_ value: Int64) -> String {
     ByteCountFormatter.string(fromByteCount: value, countStyle: .file)
   }
@@ -185,6 +225,60 @@ struct HomeView: View {
       }
     }
     selectedFiles = loaded
+  }
+}
+
+private struct NearbyDeviceRow: View {
+  let device: DiscoveredDevice
+  let isSelected: Bool
+  let onSelect: () -> Void
+
+  var body: some View {
+    Button(action: onSelect) {
+      HStack {
+        VStack(alignment: .leading, spacing: 4) {
+          Text(device.displayName)
+            .font(.headline)
+            .foregroundStyle(.primary)
+          if let host = device.host, let port = device.port {
+            Text("\(host):\(port)")
+              .font(.caption.monospaced())
+              .foregroundStyle(.secondary)
+          }
+          statusText
+        }
+        Spacer()
+        if isSelected {
+          Image(systemName: "checkmark.circle.fill")
+            .foregroundStyle(.blue)
+        } else if device.state == .ready {
+          Image(systemName: "chevron.right")
+            .font(.caption)
+            .foregroundStyle(.secondary)
+        }
+      }
+    }
+    .disabled(device.state != .ready)
+  }
+
+  @ViewBuilder
+  private var statusText: some View {
+    switch device.state {
+    case .resolving:
+      Text("Connecting…")
+        .font(.caption)
+        .foregroundStyle(.secondary)
+    case .ready:
+      if let pin = device.pin {
+        Text("PIN \(pin)")
+          .font(.caption.monospaced())
+          .foregroundStyle(.secondary)
+      }
+    case .failed:
+      Text("Use QR scan for this device")
+        .font(.caption)
+        .foregroundStyle(.orange)
+    }
   }
 }
 

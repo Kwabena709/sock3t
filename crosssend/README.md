@@ -16,7 +16,7 @@ crosssend/
 1. Install **CrossSend** on both phones.
 2. Connect both devices to the **same Wi‑Fi network**.
 3. On Android, tap **Start receiving** — a QR code and 6-digit PIN appear.
-4. On iPhone, tap **Scan QR code**, select files, then **Send to Android**.
+4. On iPhone, pick the device under **Nearby devices** (or scan QR), select files, then **Send to Android**.
 5. Files are saved to Gallery (photos/videos) or Downloads/CrossSend (documents).
 
 ```mermaid
@@ -105,7 +105,7 @@ crosssend://v1?h=<ipv4>&p=53317&pin=<6-digit>&n=<device-name>
 | Android HTTP server + file save | Done |
 | iOS QR scan + file pick | Done |
 | iOS → Android transfer | Done |
-| mDNS auto-discovery (browse list) | Stub on iOS |
+| mDNS auto-discovery (browse list) | Done |
 | Resume interrupted transfers | Planned |
 | TLS encryption | Planned |
 | Android → iPhone | Planned |
